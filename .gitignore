@@ -1,0 +1,13 @@
+.env
+db.sqlite3
+.DS_Store
+webpack-stats.json
+webpack-stats-actions.json
+__pycache__/
+_build
+/.cache/
+/__version__/
+/tmp
+/node_modules
+/moment.js
+/web-ext-artifacts

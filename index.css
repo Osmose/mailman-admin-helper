@@ -1,0 +1,36 @@
+
+
+.helper-form .recipient-body {
+  display: flex;
+  flex-direction: row;
+}
+
+.helper-form .controls {
+  flex: 1;
+}
+
+.helper-form .messages {
+  flex: 3;
+}
+
+.helper-form .controls button {
+  display: block;
+  width: 100%;
+  font-size: 16px;
+  margin: 0 0 10px;
+  padding: 4px 0;
+  border: 2px solid #000;
+  border-radius: 4px;
+  cursor: pointer;
+  background: none;
+}
+
+.helper-form .controls .accept {
+  border: 2px solid #05a700;
+  color: #05a700;
+}
+
+.helper-form .controls .discard {
+  border: 2px solid #a4000f;
+  color: #a4000f;
+}

@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "name": "mailman-admin-helper",
+  "version": "0.1.0",
+  "applications": {
+    "gecko": {
+      "id": "mailman-admin-helper@mkelly.me"
+    }
+  },
+
+  "description": "Adds useful shortcuts to Mozilla Mailman admin.",
+
+  "content_scripts": [
+    {
+      "matches": [
+        "*://mail.mozilla.org/admindb/*"
+      ],
+      "js": ["index.js"],
+      "css": ["index.css"]
+    }
+  ]
+}

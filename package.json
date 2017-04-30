@@ -1,0 +1,11 @@
+{
+  "name": "mailman-admin-helper",
+  "version": "0.1.0",
+  "description": "",
+  "private": "true",
+  "author": "Michael Kelly",
+  "license": "MIT",
+  "scripts": {
+    "build": "web-ext build"
+  }
+}
