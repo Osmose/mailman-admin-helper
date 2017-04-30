@@ -11,3 +11,4 @@ _build
 /node_modules
 /moment.js
 /web-ext-artifacts
+.web-extension-id
