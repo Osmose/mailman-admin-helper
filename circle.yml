@@ -9,7 +9,7 @@ dependencies:
 compile:
   override:
     - web-ext build
-    - cp -r web-ext-artifacts $CIRCLE_ARTIFACTS
+    - mv web-ext-artifacts $CIRCLE_ARTIFACTS
 test:
   override:
     - web-ext lint --self-hosted
@@ -18,6 +18,6 @@ deployment:
     tag: /v[0-9]+(\.[0-9]+)*/
     owner: Osmose
     commands:
-      - jq '.version = "${CIRCLE_TAG:1}"' manifest.json > tmp.json && mv tmp.json manifest.json
-      - web-ext build
+      - jq --arg tag "${CIRCLE_TAG:1}" '.version = $tag' manifest.json > tmp.json && mv tmp.json manifest.json
+      - web-ext sign --api-key $AMO_API_KEY --api-secret $AMO_API_SECRET
       - ghr -u Osmose $CIRCLE_TAG web-ext-artifacts
