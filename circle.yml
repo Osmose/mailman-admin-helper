@@ -1,0 +1,23 @@
+machine:
+  node:
+    version: 7.10.0
+dependencies:
+  override:
+    - sudo apt-get update; sudo apt-get install jq
+    - go get -u github.com/tcnksm/ghr
+    - npm install -g web-ext
+compile:
+  override:
+    - web-ext build
+    - cp -r web-ext-artifacts $CIRCLE_ARTIFACTS
+test:
+  override:
+    - web-ext lint --self-hosted
+deployment:
+  release:
+    tag: /v[0-9]+(\.[0-9]+)*/
+    owner: Osmose
+    commands:
+      - jq '.version = "${CIRCLE_TAG:1}"' manifest.json > tmp.json && mv tmp.json manifest.json
+      - web-ext build
+      - ghr -u Osmose $CIRCLE_TAG web-ext-artifacts
