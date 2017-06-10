@@ -13,7 +13,7 @@ function el(tagName, attrs={}, children=[]) {
   return element;
 }
 function makeShorthand(tagName) {
-  return (...arguments) => el(tagName, ...arguments);
+  return (...args) => el(tagName, ...args);
 }
 
 const div = makeShorthand('div');
@@ -93,7 +93,13 @@ if (oldForm) {
             ]),
           ]),
         ]);
-      })),
+      }).concat(h3(), [div({class: 'controls-all'}, [
+          button({class: 'accept'}, ['Accept All']),
+          button({class: 'accept whitelist'}, ['Accept & Whitelist All']),
+          button({class: 'discard'}, ['Discard All']),
+          button({class: 'discard blacklist'}, ['Discard & Blacklist All']),
+        ]),
+      ])),
     ]);
 
     function addInput(name, value) {
@@ -104,26 +110,36 @@ if (oldForm) {
       }));
     }
 
+    function setAction(target, email) {
+      if (target.classList.contains('accept')) {
+        addInput(`senderaction-${email}`, '1');
+        if (target.classList.contains('whitelist')) {
+          addInput(`senderfilterp-${email}`, '1');
+          addInput(`senderfilter-${email}`, '6');
+        }
+      } else if (target.classList.contains('discard')) {
+        addInput(`senderaction-${email}`, '3');
+        if (target.classList.contains('blacklist')) {
+          addInput(`senderfilterp-${email}`, '1');
+          addInput(`senderfilter-${email}`, '3');
+        }
+      }
+    }
+
     newForm.addEventListener('click', event => {
       const target = event.target;
       if (target.matches('.controls button')) {
         event.preventDefault();
         const email = matchParent(target, '.recipient').dataset.email;
-        if (target.classList.contains('accept')) {
-          addInput(`senderaction-${email}`, '1');
-          if (target.classList.contains('whitelist')) {
-            addInput(`senderfilterp-${email}`, '1');
-            addInput(`senderfilter-${email}`, '6');
-          }
-          newForm.submit();
-        } else if (target.classList.contains('discard')) {
-          addInput(`senderaction-${email}`, '3');
-          if (target.classList.contains('blacklist')) {
-            addInput(`senderfilterp-${email}`, '1');
-            addInput(`senderfilter-${email}`, '3');
-          }
-          newForm.submit();
+        setAction(target, email);
+        newForm.submit();
+      }
+      if (target.matches('.controls-all button')) {
+        event.preventDefault();
+        for (let [index, recipient] of recipients.entries()) {
+          setAction(target, encodeURIComponent(recipient.email));
         }
+        newForm.submit();
       }
     });
 

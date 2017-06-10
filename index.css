@@ -1,5 +1,3 @@
-
-
 .helper-form .recipient-body {
   display: flex;
   flex-direction: row;
@@ -13,7 +11,8 @@
   flex: 3;
 }
 
-.helper-form .controls button {
+.helper-form .controls button,
+.helper-form .controls-all button {
   display: block;
   width: 100%;
   font-size: 16px;
@@ -25,12 +24,24 @@
   background: none;
 }
 
-.helper-form .controls .accept {
+.helper-form .controls-all button {
+  font-weight: bold;
+}
+
+.helper-form .controls-all {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+}
+
+.helper-form .controls .accept,
+.helper-form .controls-all .accept {
   border: 2px solid #05a700;
   color: #05a700;
 }
 
-.helper-form .controls .discard {
+.helper-form .controls .discard,
+.helper-form .controls-all .discard {
   border: 2px solid #a4000f;
   color: #a4000f;
 }
