@@ -56,7 +56,7 @@ if (oldForm) {
         return {
           link: tbody.children[0].querySelector('a').href,
           id: tbody.querySelector('input').value,
-          subject: tbody.children[0].querySelector('td:last-child').textContent,
+          subject: tbody.children[0].querySelector('td:last-child').textContent || "no subject",
           size: tbody.children[1].querySelector('td:last-child').textContent,
           reason: tbody.children[2].querySelector('td:last-child').textContent,
           received: tbody.children[3].querySelector('td:last-child').textContent,
